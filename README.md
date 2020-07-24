@@ -12,5 +12,5 @@ https://github.com/f-lab-edu/real-time-delivery-market/wiki/01.-Use-Case
 
 ## front 설계
 
-해당 내용은 oven에서 확인하실 수 있습니다.(수정중)
+해당 내용은 oven에서 확인하실 수 있습니다.(수정중)    
 https://ovenapp.io/project/G6TOhysuxWklnhi5TDYkY9WPvh7jayQ8#aGfYS
