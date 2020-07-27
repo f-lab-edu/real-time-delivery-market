@@ -1,19 +1,23 @@
-package com.ht.project.realtimedeliverymarket.member;
+package com.ht.project.realtimedeliverymarket.member.model.vo;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
-@Value
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 
-  String city;
+  private String city;
 
-  String street;
+  private String street;
 
-  String detail;
+  private String detail;
 
-  String zipcode;
+  private String zipcode;
 
 }

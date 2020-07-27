@@ -54,6 +54,13 @@ public class PersistenceJpaConfig {
    * JpaVendorAdapter: 사용할 JPA 벤더를 지정합니다. 지정한 벤더 별로 다른 설정 프로퍼티를 사용해야 하는 경우가 많습니다.
    * 현재는 Hibernate르 사용하기 때문에 HibernateVenderAdapter를 사용합니다.
    * JPA 벤더를 사용하면 showSql, generateDdl database, databasePlatform 등을 지정할 수 있습니다.
+   *
+   * jpaProperties: jpa 표준속성을 설정할 수 있습니다.
+   * 현재 application-properties 파일에서 ddl-auto를 설정하였으나,
+   * 누락되는 되는 현상이 발생하였습니다.
+   * EntityFactoryBean에 직접 주입하니 해결이 되었습니다.
+   * 원인을 파악 후 주석에 남기도록 하겠습니다.
+   *
    * @param dataSource
    * @return
    */
@@ -66,7 +73,7 @@ public class PersistenceJpaConfig {
 
     JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     em.setJpaVendorAdapter(vendorAdapter);
-    //em.setJpaProperties(jpaProperties());
+    em.setJpaProperties(jpaProperties());
 
     return em;
   }
@@ -102,13 +109,12 @@ public class PersistenceJpaConfig {
     return txManager;
   }
 
-  /*해당 내용은 application-default.properties 에서 로드될 것으로 예상. 현재는 주석 처리 후, 문제시 재설정 해보기.
   private Properties jpaProperties() {
 
     Properties properties = new Properties();
     properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-
+    properties.setProperty("hibernate.hbm2ddl.auto", "create");
     return properties;
-  }*/
+  }
 
 }

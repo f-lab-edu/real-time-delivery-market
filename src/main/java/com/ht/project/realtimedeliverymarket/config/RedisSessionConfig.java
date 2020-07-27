@@ -22,9 +22,11 @@ import org.springframework.session.web.context.AbstractHttpSessionApplicationIni
  * 스프링이 이를 로딩할 수 있도록 Spring Session은 AbstractHttpSessionApplicationInitializer를 제공합니다.
  * 해당 어노테이션을 활용하기 위해서는 @Configuration 클래스 내부에
  * 하나 이상의 RedisConnectionFactory 가 제공 되어야 합니다.
+ *
+ * 현재 세션 유지시간은 30분으로 설정되어 있습니다.
  */
 @Configuration
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 1800) //1800이 default
+@EnableRedisHttpSession
 public class RedisSessionConfig extends AbstractHttpSessionApplicationInitializer {
 
   @Value("${redis.session.host}")
