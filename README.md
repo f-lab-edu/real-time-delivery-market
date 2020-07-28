@@ -7,10 +7,24 @@
 
 ## Use case 정리
 
-해당 내용은 링크를 통해 Wiki를 확인하시길 바랍니다.    
+* 해당 내용은 링크를 통해 Wiki를 확인하시길 바랍니다.    
 https://github.com/f-lab-edu/real-time-delivery-market/wiki/01.-Use-Case
 
 ## front 설계
 
-해당 내용은 oven에서 확인하실 수 있습니다.(수정중)    
+* 해당 내용은 oven에서 확인하실 수 있습니다.(수정중)    
 https://ovenapp.io/project/G6TOhysuxWklnhi5TDYkY9WPvh7jayQ8#aGfYS
+
+## 브랜치 관리 전략
+* AGORA는 Git-Flow 를 이용하여 브랜치를 관리하였습니다.
+![git_flow](https://user-images.githubusercontent.com/54772162/88681478-92ce9600-d12c-11ea-8be4-8b516f54cc6d.png)
+
+* master : 배포시 사용할 브랜치.    
+* develop : 다음 버전을 개발하는 브랜치, 완전히 배포가 가능하다고 생각되면 master 브랜치에 merge 합니다.    
+* feature : 기능을 개발하는 브랜치.    
+* release : 배포를 준비할 때 사용할 브랜치.    
+* hotfix : 배포 후에 발생한 버그를 수정 하는 브랜치.    
+
+### 참고 사이트
+우린 Git-flow를 사용하고 있어요, 우아한 형제들 기술 블로그, Oct 30, 2017, 나동호
+https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html
