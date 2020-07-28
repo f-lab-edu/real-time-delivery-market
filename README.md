@@ -16,7 +16,7 @@ https://github.com/f-lab-edu/real-time-delivery-market/wiki/01.-Use-Case
 https://ovenapp.io/project/G6TOhysuxWklnhi5TDYkY9WPvh7jayQ8#aGfYS
 
 ## 브랜치 관리 전략
-* AGORA는 Git-Flow 를 이용하여 브랜치를 관리하였습니다.
+* 해당 프로젝트는 Git-Flow 를 이용하여 브랜치를 관리하였습니다.
 ![git_flow](https://user-images.githubusercontent.com/54772162/88681478-92ce9600-d12c-11ea-8be4-8b516f54cc6d.png)
 
 * master : 배포시 사용할 브랜치.    
