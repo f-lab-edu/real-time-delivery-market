@@ -1,9 +1,8 @@
 package com.ht.project.realtimedeliverymarket;
 
+import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
 import com.ht.project.realtimedeliverymarket.member.repository.MemberRepository;
 import com.ht.project.realtimedeliverymarket.member.service.MemberService;
-import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
-import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +21,7 @@ public class MemberServiceTest {
   private MemberRepository memberRepository;
 
   @Test
-  public void 회원등록() {
+  public void 회원가입() {
 
     MemberJoinDto memberJoinDto = MemberJoinDto.builder()
             .account("test1234")
@@ -39,5 +38,15 @@ public class MemberServiceTest {
     Long saveId = memberService.join(memberJoinDto);
 
     assertEquals("test1234", memberRepository.findById(saveId).get().getAccount());
+    assertEquals("Test1234!", memberRepository.findById(saveId).get().getPassword());
+    assertEquals("홍길동", memberRepository.findById(saveId).get().getName());
+    assertEquals("test1234@gmail.com", memberRepository.findById(saveId).get().getEmail());
+    assertEquals("010-1234-1234", memberRepository.findById(saveId).get().getPhone());
+    assertEquals("서울시 강남구", memberRepository.findById(saveId).get().getAddress().getCity());
+    assertEquals("논현동", memberRepository.findById(saveId).get().getAddress().getStreet());
+    assertEquals("테스트타워 101호", memberRepository.findById(saveId).get().getAddress().getDetail());
+    assertEquals("123-123", memberRepository.findById(saveId).get().getAddress().getZipcode());
+
   }
+
 }
