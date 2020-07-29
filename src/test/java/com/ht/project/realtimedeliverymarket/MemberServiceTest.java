@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Transactional
 @SpringBootTest
@@ -47,6 +48,38 @@ public class MemberServiceTest {
     assertEquals("테스트타워 101호", memberRepository.findById(saveId).get().getAddress().getDetail());
     assertEquals("123-123", memberRepository.findById(saveId).get().getAddress().getZipcode());
 
+  }
+
+  @Test
+  public void 계정중복검사() {
+
+    MemberJoinDto memberJoinDto1 = MemberJoinDto.builder()
+            .account("test1234")
+            .password("Test1234!")
+            .name("홍길동")
+            .email("test1234@gmail.com")
+            .phone("010-1234-1234")
+            .city("서울시 강남구")
+            .street("논현동")
+            .detail("테스트타워 101호")
+            .zipcode("123-123")
+            .build();
+
+    MemberJoinDto memberJoinDto2 = MemberJoinDto.builder()
+            .account("test1234")
+            .password("Test1234!")
+            .name("홍길동")
+            .email("test1234@gmail.com")
+            .phone("010-1234-1234")
+            .city("서울시 강남구")
+            .street("논현동")
+            .detail("테스트타워 101호")
+            .zipcode("123-123")
+            .build();
+
+
+    memberService.join(memberJoinDto1);
+    assertThrows(IllegalStateException.class, () -> memberService.join(memberJoinDto2));
   }
 
 }
