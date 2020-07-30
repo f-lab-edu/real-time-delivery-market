@@ -79,6 +79,7 @@ public class MemberServiceTest {
 
 
     memberService.join(memberJoinDto1);
+
     assertThrows(IllegalStateException.class, () -> memberService.join(memberJoinDto2));
   }
 
