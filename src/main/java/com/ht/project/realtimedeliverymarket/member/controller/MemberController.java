@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/members")
 public class MemberController {
@@ -17,7 +19,7 @@ public class MemberController {
   private MemberService memberService;
 
   @PostMapping
-  public HttpStatus join(@RequestBody MemberJoinDto memberJoinDto) {
+  public HttpStatus join(@RequestBody @Valid MemberJoinDto memberJoinDto) {
 
     memberService.join(memberJoinDto);
 
