@@ -28,8 +28,9 @@ public class MemberService {
   }
 
   /**
-   * Optional.isPresent()
-   * 해당 값이 존재하는지 여부를 파악할 수 있고, 있으면 true 를 반환하고, 없으면 false 를 반환합니다.
+   * Optional.ifPresent()
+   * Optional 객체가 non-null이 경우에 인자로 넘긴 함수를 실행하는 메서드입니다.
+   * Optional 객체가 null이면 인자로 넘긴 함수는 실행되지 않습니다.
    *
    * @param account 사용자 ID
    */
@@ -37,8 +38,7 @@ public class MemberService {
 
     Optional<Member> member = memberRepository.findByAccount(account);
 
-    if(member.isPresent()) {
-      throw new IllegalStateException("중복된 계정입니다.");
-    }
+    member.ifPresent(s -> {throw new IllegalStateException("중복된계정입니다.");});
+
   }
 }
