@@ -30,3 +30,6 @@ https://ovenapp.io/project/G6TOhysuxWklnhi5TDYkY9WPvh7jayQ8#aGfYS
 
 우린 Git-flow를 사용하고 있어요, 우아한 형제들 기술 블로그, Oct 30, 2017, 나동호
 https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html
+
+## CI(Continuous Integration)(예정)
+
