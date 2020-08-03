@@ -31,5 +31,12 @@ https://ovenapp.io/project/G6TOhysuxWklnhi5TDYkY9WPvh7jayQ8#aGfYS
 우린 Git-flow를 사용하고 있어요, 우아한 형제들 기술 블로그, Oct 30, 2017, 나동호
 https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html
 
+## 클라우드 서버 설정
+* WAS : Standard-g1(vCPU: 2개, Memory: 4GB, Disk: 50GB)
+* MySQL Server : Standard-g1(vCPU: 2개, Memory: 4GB, Disk: 50GB)
+* Redis Server : (산정 중)
+
+* 서버 산정 기준에 대한 내용은 wiki에서 확인하실 수 있습니다.
+
 ## CI(Continuous Integration)(예정)
 
