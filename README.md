@@ -37,6 +37,7 @@ https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strat
 * Redis Server : (산정 중)
 
 * 서버 산정 기준에 대한 내용은 wiki에서 확인하실 수 있습니다.
+https://github.com/f-lab-edu/real-time-delivery-market/wiki/02.-Cloud-Server-Setting
 
 ## CI(Continuous Integration)(예정)
 
