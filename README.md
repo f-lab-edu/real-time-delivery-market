@@ -33,6 +33,6 @@ https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strat
 
 ## CI(Continuous Integration)
 
-CI 설정 체크리스트(작성중)
+* CI 설정 체크리스트(작성중)    
 https://github.com/f-lab-edu/real-time-delivery-market/wiki/02.-CI-Setting-Check-list
 
