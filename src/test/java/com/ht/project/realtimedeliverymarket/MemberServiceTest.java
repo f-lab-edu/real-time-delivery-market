@@ -57,7 +57,7 @@ public class MemberServiceTest {
 
   @Test
   @DisplayName("회원가입")
-  public void join_InsertIntoDb_ShouldPass() {
+  public void joinInsertIntoDbShouldPass() {
 
     MemberJoinDto memberJoinDto = MemberJoinDto.builder()
             .account("test1234")
@@ -87,7 +87,7 @@ public class MemberServiceTest {
 
   @Test
   @DisplayName("계정 중복 체크")
-  public void verifyDuplicatedAccount_DuplicatedAccount_ExceptionThrown() {
+  public void verifyDuplicatedAccountExceptionThrown() {
 
     MemberJoinDto memberJoinDto1 = MemberJoinDto.builder()
             .account("test1234")

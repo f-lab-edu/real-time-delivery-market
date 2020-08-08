@@ -41,8 +41,8 @@ public class MemberJoinDtoValidationTest {
   private final ObjectMapper mapper = new ObjectMapper();
 
   @Test
-  @DisplayName("회원가입_요청_유효성_검증_Ok")
-  public void join_CreateMemberJoinDto_Ok() throws Exception {
+  @DisplayName("회원가입_요청_유효성_검증_통과")
+  public void joinCreateMemberJoinDtoOk() throws Exception {
 
     MemberJoinDto memberJoinDto = MemberJoinDto.builder()
             .account("test1234")
@@ -62,8 +62,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_Id_유효문자검증_BadRequest")
-  public void join_InvalidCharIntoAccount_BadRequest() throws Exception {
+  @DisplayName("회원가입시 Id에 유효하지않은 문자를 입력하면 400 Error를 발생시킵니다.")
+  public void joinInvalidCharIntoAccountBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithAccount("Test1234");
 
@@ -73,8 +73,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_Id_글자수검증_BadRequest")
-  public void join_InvalidLengthAccount_BadRequest() throws Exception {
+  @DisplayName("회원가입시 Id에 정확한 글자 수를 입력하지 않으면 400 Error를 발생시킵니다.")
+  public void joinInvalidLengthAccountBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithAccount("test1234567890");
 
@@ -84,8 +84,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_Id_Null_삽입_BadRequest")
-  public void join_NullIntoAccount_BadRequest() throws Exception {
+  @DisplayName("회원가입시 Id에 null을 삽입하면 400 Error가 발생합니다.")
+  public void joinNullIntoAccountBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithAccount(null);
 
@@ -95,8 +95,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_Id_빈문자열삽입_BadRequest")
-  public void join_BlankIntoAccount_BadRequest() throws Exception {
+  @DisplayName("회원가입시 Id에 빈 문자열을 삽입하면 400 Error가 발생합니다.")
+  public void joinBlankIntoAccountBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithAccount("");
 
@@ -106,8 +106,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_password_공백삽입_BadRequest")
-  public void join_WhiteSpaceIntoPassword_BadRequest() throws Exception {
+  @DisplayName("회원가입시 password에 공백문자를 삽입하면 400 Error가 발생합니다.")
+  public void joinWhiteSpaceIntoPasswordBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithPassword("Test 1234!");
 
@@ -117,8 +117,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_password_소문자누락_BadRequest")
-  public void join_MissLowercasePassword_BadRequest() throws Exception {
+  @DisplayName("회원가입시 password에 소문자를 1개 이상 삽입하지 않으면 400 Error가 발생합니다.")
+  public void joinMissLowercasePasswordBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithPassword("TEST1234!");
 
@@ -128,8 +128,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_password_대문자누락_BadRequest")
-  public void join_MissUppercasePassword_BadRequest() throws Exception {
+  @DisplayName("회원가입시 password에 대문자를 1개 이상 삽입하지 않으면 400 Error가 발생합니다.")
+  public void joinMissUppercasePasswordBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithPassword("test1234!");
 
@@ -139,8 +139,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_password_Null삽입_BadRequest")
-  public void join_NullIntoPassword_BadRequest() throws Exception {
+  @DisplayName("회원가입시 password에 null을 삽입하면 400 Error가 발생합니다.")
+  public void joinNullIntoPasswordBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithPassword(null);
 
@@ -150,8 +150,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_password_공백삽입_BadRequest")
-  public void join_BlankIntoPassword_BadRequest() throws Exception {
+  @DisplayName("회원가입시 password에 공백문자를 삽입하면 400 Error가 발생합니다.")
+  public void joinBlankIntoPasswordBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithPassword("");
 
@@ -161,8 +161,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_email_잘못된형식_BadRequest")
-  public void join_InvalidFormatEmail_BadRequest() throws Exception {
+  @DisplayName("회원가입시 email에 잘못된 형식을 입력하면 400 Error가 발생합니다.")
+  public void joinInvalidFormatEmailBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithEmail("test.com");
 
@@ -172,8 +172,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_email_Null삽입_BadRequest")
-  public void join_NullIntoEmail_BadRequest() throws Exception {
+  @DisplayName("회원가입시 email에 null을 삽입하면 400 Error가 발생합니다.")
+  public void joinNullIntoEmailBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithEmail(null);
 
@@ -183,8 +183,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_email_공백삽입_BadRequest")
-  public void join_BlankIntoEmail_BadRequest() throws Exception {
+  @DisplayName("회원가입시 email에 공백문자를 삽입하면 400 Error가 발생합니다.")
+  public void joinBlankIntoEmailBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithEmail("");
 
@@ -194,8 +194,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_phone_잘못된형식_BadRequest")
-  public void join_InvalidFormatPhone_BadRequest() throws Exception {
+  @DisplayName("회원가입시 전화번호에 잘못된 형식을 입력하면 400 Error가 발생합니다.")
+  public void joinInvalidFormatPhoneBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithPhone("010123123");
 
@@ -205,8 +205,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_phone_Null삽입_BadRequest")
-  public void join_NullIntoPhone_BadRequest() throws Exception {
+  @DisplayName("회원가입시 전화번호에 null을 삽입하면 400 Error가 발생합니다.")
+  public void joinNullIntoPhoneBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithPhone(null);
 
@@ -216,8 +216,8 @@ public class MemberJoinDtoValidationTest {
   }
 
   @Test
-  @DisplayName("회원가입_phone_공백삽입_BadRequest")
-  public void join_BlankIntoPhone_BadRequest() throws Exception {
+  @DisplayName("회원가입시 전화번호에 공백문자를 삽입하면 400 Error가 발생합니다.")
+  public void joinBlankIntoPhoneBadRequest() throws Exception {
 
     MemberJoinDto memberJoinDto = createTestcaseWithPhone("");
 
