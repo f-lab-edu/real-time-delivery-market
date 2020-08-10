@@ -46,7 +46,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(MemberService.class)
-@TestPropertySource("/application-test.properties")
 public class MemberServiceTest {
 
   @Autowired
