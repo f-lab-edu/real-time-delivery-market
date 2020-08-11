@@ -16,7 +16,7 @@ public class MemberJoinDto {
   String account;
 
   @NotBlank(message = "비밀번호는 필수 입력사항입니다.")
-  @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{8,12}$",
+  @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)(?!.*\\s).{8,12}$",
           message = "영문 대소문자, 숫자, 특수문자를 각 1개 이상을 포함하고 8-12자 이내로 입력하세요.")
   String password;
 
@@ -28,6 +28,8 @@ public class MemberJoinDto {
   String email;
 
   @NotBlank(message = "전화번호는 필수 입력사항입니다.")
+  @Pattern(regexp = "^010[-](\\d{4})[-](\\d{4})$",
+          message = "010-1234-1234 형식으로 입력하세요.")
   String phone;
 
   @NotBlank(message = "'서울시 강남구'의 형태로 입력해주세요.")
