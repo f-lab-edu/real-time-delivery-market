@@ -33,7 +33,7 @@ https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strat
 
 ## CI(Continuous Integration)
 
-* CI 동작과정
+* CI 동작과정    
 ![jenkins_ci_process3](https://user-images.githubusercontent.com/54772162/90030465-0a88ed00-dcf7-11ea-938b-6184f5658564.jpg)
 
 * CI 설정 체크리스트    
