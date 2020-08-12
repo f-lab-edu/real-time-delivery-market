@@ -34,7 +34,7 @@ https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strat
 ## CI(Continuous Integration)
 
 * CI 동작과정
-![jenkins_ci_process1](https://user-images.githubusercontent.com/54772162/90029694-1d4ef200-dcf6-11ea-8805-3b131a1a9222.jpg)
+![jenkins_ci_process3](https://user-images.githubusercontent.com/54772162/90030465-0a88ed00-dcf7-11ea-938b-6184f5658564.jpg)
 
 * CI 설정 체크리스트    
 https://github.com/f-lab-edu/real-time-delivery-market/wiki/02.-CI-Setting-Check-list
