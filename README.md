@@ -33,6 +33,9 @@ https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strat
 
 ## CI(Continuous Integration)
 
+* CI란 무엇인가?(참고 사이트)    
+https://www.redhat.com/ko/topics/devops/what-is-ci-cd    
+
 * CI 동작과정    
 ![jenkins_ci_process3](https://user-images.githubusercontent.com/54772162/90030465-0a88ed00-dcf7-11ea-938b-6184f5658564.jpg)
 
