@@ -39,6 +39,5 @@ https://www.redhat.com/ko/topics/devops/what-is-ci-cd
 * CI 동작과정    
 ![jenkins_ci_process3](https://user-images.githubusercontent.com/54772162/90030465-0a88ed00-dcf7-11ea-938b-6184f5658564.jpg)
 
-* jenkins push 자동 빌드 테스트
 
 
