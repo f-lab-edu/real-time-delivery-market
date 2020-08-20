@@ -18,14 +18,13 @@ public class MemberService {
   private MemberRepository memberRepository;
 
   @Transactional
-  public Long join(MemberJoinDto memberJoinDto) {
+  public Member join(MemberJoinDto memberJoinDto) {
 
     Member member = Member.from(memberJoinDto);
 
     verifyDuplicatedAccount(memberJoinDto.getAccount());
-    memberRepository.save(member);
 
-    return member.getId();
+    return memberRepository.save(member);
   }
 
   /**
@@ -35,7 +34,7 @@ public class MemberService {
    *
    * @param account 사용자 ID
    */
-  private void verifyDuplicatedAccount(String account) {
+  protected void verifyDuplicatedAccount(String account) {
 
     Optional<Member> member = memberRepository.findByAccount(account);
 
