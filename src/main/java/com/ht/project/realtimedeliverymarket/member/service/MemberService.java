@@ -34,7 +34,7 @@ public class MemberService {
    *
    * @param account 사용자 ID
    */
-  protected void verifyDuplicatedAccount(String account) {
+  private void verifyDuplicatedAccount(String account) {
 
     Optional<Member> member = memberRepository.findByAccount(account);
 
