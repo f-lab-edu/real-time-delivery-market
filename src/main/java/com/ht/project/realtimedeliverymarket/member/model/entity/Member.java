@@ -3,6 +3,10 @@ package com.ht.project.realtimedeliverymarket.member.model.entity;
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
 import com.ht.project.realtimedeliverymarket.member.model.vo.Address;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ht.project.realtimedeliverymarket.point.model.entity.Point;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -57,6 +61,9 @@ public class Member {
   @Column(name = "update_at", nullable = false)
   private LocalDateTime updateAt;
 
+  @OneToMany(mappedBy = "member")
+  private List<Point> points = new ArrayList<>();
+
   @Builder
   public Member(String account, String password, String name,
                 String email, String phone, Address address) {
@@ -66,6 +73,11 @@ public class Member {
     this.email = email;
     this.phone = phone;
     this.address = address;
+  }
+
+  public void addPoints(Point point) {
+    this.points.add(point);
+    point.setMember(this);
   }
 
   public static Member from(MemberJoinDto memberJoinDto) {
