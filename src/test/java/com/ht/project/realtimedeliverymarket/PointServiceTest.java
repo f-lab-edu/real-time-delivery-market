@@ -33,7 +33,7 @@ public class PointServiceTest {
   private PointService pointService;
 
   @Test
-  @DisplayName("회원가입 후 1000 포인트를 지급합니다.")
+  @DisplayName("회원가입을 성공하면 운영자가 사용자에게 가입축하 1000 포인트를 지급합니다.")
   public void savePointForJoinSuccess() {
 
     Member member = Member.builder()
