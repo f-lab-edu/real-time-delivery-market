@@ -40,3 +40,5 @@ https://www.redhat.com/ko/topics/devops/what-is-ci-cd
 ![jenkins_ci_process3](https://user-images.githubusercontent.com/54772162/90030465-0a88ed00-dcf7-11ea-938b-6184f5658564.jpg)
 
 * CI 설정 체크리스트
+
+## CD(Continuous Deploy)
