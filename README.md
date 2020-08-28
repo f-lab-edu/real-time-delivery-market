@@ -42,3 +42,5 @@ https://www.redhat.com/ko/topics/devops/what-is-ci-cd
 * CI 설정 체크리스트
 
 ## CD(Continuous Deploy)
+* CD란 무엇인가?(참고 사이트)    
+https://www.redhat.com/ko/topics/devops/what-is-ci-cd    
