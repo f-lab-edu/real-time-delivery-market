@@ -2,6 +2,8 @@ package com.ht.project.realtimedeliverymarket.member.model.entity;
 
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
 import com.ht.project.realtimedeliverymarket.member.model.vo.Address;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +80,18 @@ public class Member {
   public void addPoints(Point point) {
     this.points.add(point);
     point.setMember(this);
+  }
+
+  public BigDecimal getPointTotal() {
+
+    BigDecimal pointTotal = BigDecimal.valueOf(0);
+
+    for(Point point : this.getPoints()) {
+
+      pointTotal = pointTotal.add(point.getValue());
+    }
+
+    return pointTotal;
   }
 
   public static Member from(MemberJoinDto memberJoinDto) {

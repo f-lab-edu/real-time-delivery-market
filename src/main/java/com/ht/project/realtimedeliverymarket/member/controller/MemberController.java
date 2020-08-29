@@ -1,7 +1,10 @@
 package com.ht.project.realtimedeliverymarket.member.controller;
 
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
+import com.ht.project.realtimedeliverymarket.member.model.dto.MemberLoginDto;
 import com.ht.project.realtimedeliverymarket.member.service.MemberService;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,5 +27,13 @@ public class MemberController {
     memberService.join(memberJoinDto);
 
     return HttpStatus.CREATED;
+  }
+
+  @PostMapping("/login")
+  public HttpStatus login(@RequestBody MemberLoginDto memberLoginDto, HttpSession httpSession) {
+
+    memberService.login(memberLoginDto, httpSession);
+
+    return HttpStatus.OK;
   }
 }

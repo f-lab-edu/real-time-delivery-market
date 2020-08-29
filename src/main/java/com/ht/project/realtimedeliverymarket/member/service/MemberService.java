@@ -1,23 +1,30 @@
 package com.ht.project.realtimedeliverymarket.member.service;
 
+import com.ht.project.realtimedeliverymarket.cache.enumeration.SessionKey;
+import com.ht.project.realtimedeliverymarket.cache.enumeration.SpringCacheType;
+import com.ht.project.realtimedeliverymarket.cache.service.RedisCacheService;
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
+import com.ht.project.realtimedeliverymarket.member.model.dto.MemberLoginDto;
 import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
+import com.ht.project.realtimedeliverymarket.member.model.vo.MemberCache;
 import com.ht.project.realtimedeliverymarket.member.repository.MemberRepository;
-
-import java.math.BigDecimal;
-import java.util.Optional;
-
-import com.ht.project.realtimedeliverymarket.point.model.dto.PointSaveDto;
-import com.ht.project.realtimedeliverymarket.point.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpSession;
+import java.time.Duration;
+import java.util.Optional;
 
 @Service
 public class MemberService {
 
   @Autowired
   private MemberRepository memberRepository;
+
+  @Autowired
+  private RedisCacheService redisCacheService;
 
   @Transactional
   public Member join(MemberJoinDto memberJoinDto) {
@@ -48,5 +55,48 @@ public class MemberService {
 
   }
 
+  @Transactional
+  public void login(MemberLoginDto loginDto, HttpSession httpSession) {
+
+    String sessionKey = SessionKey.MEMBER.getValue();
+
+    if (httpSession.getAttribute(sessionKey) != null) {
+      throw new IllegalStateException("이미 로그인된 상태입니다.");
+    }
+
+    Member member = findMemberToLogin(loginDto);
+    String account = member.getAccount();
+
+    httpSession.setAttribute(sessionKey, account);
+
+    redisCacheService.setCacheAsString(
+            redisCacheService.createSpringCacheKey(SpringCacheType.MEMBER, account),
+            redisCacheService.createJsonStringFrom(MemberCache.from(member)),
+            Duration.ofMinutes(30L));
+  }
+
+  @Transactional
+  private Member findMemberToLogin(MemberLoginDto loginDto) {
+
+    Member member = memberRepository
+            .findByAccount(loginDto.getAccount())
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
+
+    if (!member.getPassword().equals(loginDto.getPassword())) {
+
+      throw new IllegalArgumentException();
+    }
+
+    return member;
+  }
+
+  @Transactional
+  @Cacheable(value = "member", key="'memberInfo:' + '#account'")
+  public MemberCache findMemberCacheByAccount(String account) {
+
+    return MemberCache.from(memberRepository
+            .findByAccount(account)
+            .orElseThrow(IllegalArgumentException::new));
+  }
 
 }
