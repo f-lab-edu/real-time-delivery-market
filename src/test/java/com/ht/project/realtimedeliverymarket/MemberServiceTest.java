@@ -26,7 +26,6 @@ public class MemberServiceTest {
   @InjectMocks
   private MemberService memberService;
 
-
   @Test
   @DisplayName("회원가입 테스트")
   public void joinTestShouldPass() {
