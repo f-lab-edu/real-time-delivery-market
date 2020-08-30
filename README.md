@@ -39,7 +39,8 @@ https://www.redhat.com/ko/topics/devops/what-is-ci-cd
 * CI 동작과정    
 ![jenkins_ci_process3](https://user-images.githubusercontent.com/54772162/90030465-0a88ed00-dcf7-11ea-938b-6184f5658564.jpg)
 
-* CI 설정 체크리스트
+* CI 설정 체크리스트    
+https://github.com/f-lab-edu/real-time-delivery-market/wiki/02.-CI-Setting-Check-list
 
 ## CD(Continuous Deploy)
 * CD란 무엇인가?(참고 사이트)    
