@@ -12,6 +12,7 @@
 	<artifactId>real-time-delivery-market</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>real-time-delivery-market</name>
+	<packaging>jar</packaging>
 	<description>real-time-delivery-market</description>
 
 	<properties>
