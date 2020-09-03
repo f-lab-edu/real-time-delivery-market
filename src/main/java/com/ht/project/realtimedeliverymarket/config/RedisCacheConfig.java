@@ -24,7 +24,6 @@ import java.time.Duration;
 
 @EnableCaching
 @Configuration
-@PropertySource("application-cache.properties")
 public class RedisCacheConfig extends CachingConfigurerSupport {
 
   @Value("${redis.cache.host}")

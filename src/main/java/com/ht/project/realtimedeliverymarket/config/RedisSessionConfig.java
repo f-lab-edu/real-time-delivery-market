@@ -39,7 +39,6 @@ import javax.servlet.ServletContext;
  */
 @Configuration
 @EnableRedisHttpSession
-@PropertySource("application-session.properties")
 public class RedisSessionConfig {
 
   @Value("${redis.session.host}")
