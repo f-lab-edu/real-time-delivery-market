@@ -2,6 +2,7 @@ package com.ht.project.realtimedeliverymarket.member.controller;
 
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberLoginDto;
+import com.ht.project.realtimedeliverymarket.member.service.LoginService;
 import com.ht.project.realtimedeliverymarket.member.service.MemberService;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,9 @@ public class MemberController {
   @Autowired
   private MemberService memberService;
 
+  @Autowired
+  private LoginService loginService;
+
   @PostMapping
   public HttpStatus join(@RequestBody @Valid MemberJoinDto memberJoinDto) {
 
@@ -32,7 +36,7 @@ public class MemberController {
   @PostMapping("/login")
   public HttpStatus login(@RequestBody MemberLoginDto memberLoginDto, HttpSession httpSession) {
 
-    memberService.login(memberLoginDto, httpSession);
+    loginService.login(memberLoginDto, httpSession);
 
     return HttpStatus.OK;
   }
