@@ -1,7 +1,7 @@
 package com.ht.project.realtimedeliverymarket.member.service;
 
-import com.ht.project.realtimedeliverymarket.cache.enumeration.SessionKey;
 import com.ht.project.realtimedeliverymarket.cache.enumeration.SpringCacheType;
+import com.ht.project.realtimedeliverymarket.cache.service.CacheSerializeService;
 import com.ht.project.realtimedeliverymarket.cache.service.RedisCacheService;
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberLoginDto;
@@ -20,11 +20,16 @@ import java.util.Optional;
 @Service
 public class MemberService {
 
+  public static final String MEMBER = "account";
+
   @Autowired
   private MemberRepository memberRepository;
 
   @Autowired
   private RedisCacheService redisCacheService;
+
+  @Autowired
+  private CacheSerializeService cacheSerializeService;
 
   @Transactional
   public Member join(MemberJoinDto memberJoinDto) {
@@ -58,7 +63,7 @@ public class MemberService {
   @Transactional
   public void login(MemberLoginDto loginDto, HttpSession httpSession) {
 
-    String sessionKey = SessionKey.MEMBER.getValue();
+    String sessionKey = MEMBER;
 
     if (httpSession.getAttribute(sessionKey) != null) {
       throw new IllegalStateException("이미 로그인된 상태입니다.");
@@ -69,9 +74,9 @@ public class MemberService {
 
     httpSession.setAttribute(sessionKey, account);
 
-    redisCacheService.setCacheAsString(
+    redisCacheService.set(
             redisCacheService.createSpringCacheKey(SpringCacheType.MEMBER, account),
-            redisCacheService.createJsonStringFrom(MemberCache.from(member)),
+            cacheSerializeService.createJsonStringFrom(MemberCache.from(member)),
             Duration.ofMinutes(30L));
   }
 
