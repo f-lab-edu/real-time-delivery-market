@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpSession;
 import java.time.Duration;
 
-@Service("loginService")
+@Service
 public class LoginServiceBasedSession implements LoginService{
 
   public static final String MEMBER = "account";
