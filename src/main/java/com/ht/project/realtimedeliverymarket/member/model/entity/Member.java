@@ -2,12 +2,17 @@ package com.ht.project.realtimedeliverymarket.member.model.entity;
 
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
 import com.ht.project.realtimedeliverymarket.member.model.vo.Address;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ht.project.realtimedeliverymarket.point.model.entity.Point;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "MEMBERS")
@@ -37,10 +42,14 @@ public class Member {
 
   @Embedded
   @AttributeOverrides({
-          @AttributeOverride(name = "city", column = @Column(name = "member_city", nullable = false)),
-          @AttributeOverride(name = "street", column = @Column(name = "member_street", nullable = false)),
-          @AttributeOverride(name = "detail", column = @Column(name = "member_detail", nullable = false)),
-          @AttributeOverride(name = "zipcode", column = @Column(name = "member_zipcode", nullable = false))
+          @AttributeOverride(name = "city",
+                  column = @Column(name = "member_city", nullable = false)),
+          @AttributeOverride(name = "street",
+                  column = @Column(name = "member_street", nullable = false)),
+          @AttributeOverride(name = "detail",
+                  column = @Column(name = "member_detail", nullable = false)),
+          @AttributeOverride(name = "zipcode",
+                  column = @Column(name = "member_zipcode", nullable = false))
   })
   private Address address;
 
@@ -52,14 +61,23 @@ public class Member {
   @Column(name = "update_at", nullable = false)
   private LocalDateTime updateAt;
 
+  @OneToMany(mappedBy = "member")
+  private List<Point> points = new ArrayList<>();
+
   @Builder
-  public Member(String account, String password, String name, String email, String phone, Address address) {
+  public Member(String account, String password, String name,
+                String email, String phone, Address address) {
     this.account = account;
     this.password = password;
     this.name = name;
     this.email = email;
     this.phone = phone;
     this.address = address;
+  }
+
+  public void addPoints(Point point) {
+    this.points.add(point);
+    point.setMember(this);
   }
 
   public static Member from(MemberJoinDto memberJoinDto) {

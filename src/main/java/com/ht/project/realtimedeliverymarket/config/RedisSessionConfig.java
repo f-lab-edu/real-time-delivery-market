@@ -67,7 +67,8 @@ public class RedisSessionConfig extends AbstractHttpSessionApplicationInitialize
    */
   @Bean("sessionRedisTemplate")
   public RedisTemplate<String, Object> sessionRedisTemplate(
-          @Qualifier("sessionRedisConnectionFactory") RedisConnectionFactory sessionRedisConnectionFactory) {
+          @Qualifier("sessionRedisConnectionFactory")
+                  RedisConnectionFactory sessionRedisConnectionFactory) {
 
     RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
     redisTemplate.setConnectionFactory(sessionRedisConnectionFactory);

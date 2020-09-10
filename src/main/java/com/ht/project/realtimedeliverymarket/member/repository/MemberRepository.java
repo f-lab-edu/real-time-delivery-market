@@ -1,14 +1,15 @@
 package com.ht.project.realtimedeliverymarket.member.repository;
 
 import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long>{
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
   /**
    * Spring Data JPA 는 선언한 "도메인 클래스 + .(점) + 메소드 이름" 으로 Named 쿼리를 찾아서 실행합니다.
