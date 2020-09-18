@@ -56,5 +56,3 @@ https://www.redhat.com/ko/topics/devops/what-is-ci-cd
   
 * nGrinder를 활용한 성능 테스트를 수행합니다.    
   - nGrinder 설정(참고 사이트) : https://opentutorials.org/module/351/3334
-
-## Docker
