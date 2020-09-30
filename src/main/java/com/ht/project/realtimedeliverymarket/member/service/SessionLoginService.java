@@ -1,13 +1,15 @@
 package com.ht.project.realtimedeliverymarket.member.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ht.project.realtimedeliverymarket.cache.enumeration.SpringCacheType;
-import com.ht.project.realtimedeliverymarket.cache.service.CacheSerializeService;
 import com.ht.project.realtimedeliverymarket.cache.service.RedisCacheService;
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberLoginDto;
 import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
 import com.ht.project.realtimedeliverymarket.member.model.vo.MemberCache;
 import com.ht.project.realtimedeliverymarket.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.time.Duration;
 
 @Service
-public class LoginServiceBasedSession implements LoginService{
+public class SessionLoginService implements LoginService{
 
-  public static final String MEMBER = "account";
+  public static final String MEMBER_SESSION_KEY = "account";
 
   @Autowired
   private MemberRepository memberRepository;
@@ -26,12 +28,12 @@ public class LoginServiceBasedSession implements LoginService{
   private RedisCacheService redisCacheService;
 
   @Autowired
-  private CacheSerializeService cacheSerializeService;
+  private ObjectMapper objectMapper;
 
   @Transactional
   @Override
   public void login(MemberLoginDto loginDto, HttpSession httpSession) {
-    String sessionKey = MEMBER;
+    String sessionKey = MEMBER_SESSION_KEY;
 
     if (httpSession.getAttribute(sessionKey) != null) {
       throw new IllegalStateException("이미 로그인된 상태입니다.");
@@ -41,11 +43,18 @@ public class LoginServiceBasedSession implements LoginService{
     String account = member.getAccount();
 
     httpSession.setAttribute(sessionKey, account);
+    String memberCache;
+
+    try {
+      memberCache = objectMapper.writeValueAsString(MemberCache.from(member));
+    } catch (JsonProcessingException e) {
+
+      throw new SerializationException("변환에 실패하였습니다.", e);
+    }
 
     redisCacheService.set(
             redisCacheService.createSpringCacheKey(SpringCacheType.MEMBER, account),
-            cacheSerializeService.createJsonStringFrom(MemberCache.from(member)),
-            Duration.ofMinutes(30L));
+            memberCache, Duration.ofMinutes(30L));
   }
 
   @Transactional

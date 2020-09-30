@@ -3,7 +3,7 @@ package com.ht.project.realtimedeliverymarket;
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberLoginDto;
 import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
 import com.ht.project.realtimedeliverymarket.member.repository.MemberRepository;
-import com.ht.project.realtimedeliverymarket.member.service.LoginServiceBasedSession;
+import com.ht.project.realtimedeliverymarket.member.service.SessionLoginService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ public class LoginServiceTest {
   private MemberRepository memberRepository;
 
   @InjectMocks
-  private LoginServiceBasedSession loginService;
+  private SessionLoginService loginService;
 
   @Test
   @DisplayName("로그인할 회원의 계정을 찾지 못하면 예외가 발생합니다. ")
