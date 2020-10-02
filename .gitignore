@@ -36,5 +36,3 @@ build/
 .mvn
 mvnw
 mvnw.cmd
-application-session.properties
-application-cache.properties
