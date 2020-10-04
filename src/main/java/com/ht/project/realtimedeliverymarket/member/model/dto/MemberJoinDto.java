@@ -6,11 +6,6 @@ import javax.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Value;
 
-
-
-
-
-
 @Value
 @Builder
 public class MemberJoinDto {

@@ -2,17 +2,29 @@ package com.ht.project.realtimedeliverymarket.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.session.data.redis.RedisIndexedSessionRepository;
+import org.springframework.session.data.redis.RedisOperationsSessionRepository;
+import org.springframework.session.data.redis.RedisSessionRepository;
+import org.springframework.session.data.redis.config.annotation.SpringSessionRedisConnectionFactory;
+import org.springframework.session.data.redis.config.annotation.SpringSessionRedisOperations;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration;
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
+
+import javax.servlet.ServletContext;
 
 /**
  * @EnableRedisHttpSession: 해당 어노테이션의 경우 SpringSessionRepositoryFilter 빈을 생성합니다.
@@ -27,7 +39,7 @@ import org.springframework.session.web.context.AbstractHttpSessionApplicationIni
  */
 @Configuration
 @EnableRedisHttpSession
-public class RedisSessionConfig extends AbstractHttpSessionApplicationInitializer {
+public class RedisSessionConfig {
 
   @Value("${redis.session.host}")
   private String host;
@@ -44,8 +56,16 @@ public class RedisSessionConfig extends AbstractHttpSessionApplicationInitialize
    * 해당 프로젝트에서는 LettuceConnectionFactory 를 사용합니다.
    * Lettuce 는 Netty (비동기 이벤트 기반 고성능 네트워크 프레임워크) 기반의 Redis 클라이언트로써
    * 비동기로 요청을 처리하기 때문에 고성능을 자랑합니다.
+   *
+   * @SpringSessionRedisConnectionFactory
+   * RedisIndexedSessionRepository 에 RedisConnectionFactory 빈을 주입합니다.
+   * 해당 어노테이션이 없으면 @Primary 가 적용된 RedisConnectionFactory 를 주입합니다.
+   * 여러 RedisConnectionFactory 빈과 함께 Spring Boot auto-configure 을 사용하는 경우에는
+   * 빈 중 하나를 @Primary 로 선언해야합니다.
+   *
    */
   @Bean("sessionRedisConnectionFactory")
+  @SpringSessionRedisConnectionFactory
   public RedisConnectionFactory sessionRedisConnectionFactory() {
 
     RedisStandaloneConfiguration redisStandaloneConfiguration =
@@ -79,8 +99,9 @@ public class RedisSessionConfig extends AbstractHttpSessionApplicationInitialize
   }
 
   @Bean
-  RedisSerializer<Object> springSessionDefaultRedisSerializer() {
+  public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
 
     return new GenericJackson2JsonRedisSerializer();
   }
+
 }

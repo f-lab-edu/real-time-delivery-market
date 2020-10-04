@@ -2,16 +2,14 @@ package com.ht.project.realtimedeliverymarket.member.service;
 
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
 import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
+import com.ht.project.realtimedeliverymarket.member.model.vo.MemberCache;
 import com.ht.project.realtimedeliverymarket.member.repository.MemberRepository;
-
-import java.math.BigDecimal;
-import java.util.Optional;
-
-import com.ht.project.realtimedeliverymarket.point.model.dto.PointSaveDto;
-import com.ht.project.realtimedeliverymarket.point.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class MemberService {
@@ -48,5 +46,13 @@ public class MemberService {
 
   }
 
+  @Transactional
+  @Cacheable(value = "member", key="'memberInfo:' + '#account'")
+  public MemberCache findMemberCacheByAccount(String account) {
+
+    return MemberCache.from(memberRepository
+            .findByAccount(account)
+            .orElseThrow(IllegalArgumentException::new));
+  }
 
 }

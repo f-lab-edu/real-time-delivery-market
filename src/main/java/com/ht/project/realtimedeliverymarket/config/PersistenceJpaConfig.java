@@ -1,8 +1,9 @@
 package com.ht.project.realtimedeliverymarket.config;
 
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,12 +38,29 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class PersistenceJpaConfig {
 
+  @Value("${spring.datasource.url}")
+  String dbUrl;
+
+  @Value("${spring.datasource.username}")
+  String dbUsername;
+
+  @Value("${spring.datasource.password}")
+  String dbPassword;
+
+  @Value("${spring.datasource.driverName}")
+  String dbDriverName;
+
   @Bean
   @Primary
-  @ConfigurationProperties(prefix = "spring.datasource.hikari")
   public DataSource dataSource() {
 
-    return DataSourceBuilder.create().build();
+    return DataSourceBuilder.create()
+            .url(dbUrl)
+            .username(dbUsername)
+            .password(dbPassword)
+            .type(HikariDataSource.class)
+            .driverClassName(dbDriverName)
+            .build();
   }
 
   /**

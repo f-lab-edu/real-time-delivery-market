@@ -80,5 +80,4 @@ public class MemberServiceTest {
                             "test1234"));
 
   }
-
 }

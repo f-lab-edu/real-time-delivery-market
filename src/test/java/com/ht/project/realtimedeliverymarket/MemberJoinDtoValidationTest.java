@@ -3,6 +3,7 @@ package com.ht.project.realtimedeliverymarket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ht.project.realtimedeliverymarket.member.controller.MemberController;
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
+import com.ht.project.realtimedeliverymarket.member.service.LoginService;
 import com.ht.project.realtimedeliverymarket.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,9 @@ public class MemberJoinDtoValidationTest {
 
   @MockBean
   private MemberService memberService;
+
+  @MockBean
+  private LoginService loginService;
 
   private final ObjectMapper mapper = new ObjectMapper();
 
