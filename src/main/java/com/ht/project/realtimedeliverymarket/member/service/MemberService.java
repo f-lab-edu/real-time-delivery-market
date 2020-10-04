@@ -1,5 +1,6 @@
 package com.ht.project.realtimedeliverymarket.member.service;
 
+import com.ht.project.realtimedeliverymarket.member.annotation.LoginCheck;
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
 import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
 import com.ht.project.realtimedeliverymarket.member.model.vo.MemberCache;
@@ -47,6 +48,7 @@ public class MemberService {
   }
 
   @Transactional
+  @LoginCheck
   @Cacheable(value = "member", key="'memberInfo:' + '#account'")
   public MemberCache findMemberCacheByAccount(String account) {
 
