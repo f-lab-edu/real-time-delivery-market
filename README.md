@@ -52,7 +52,7 @@ https://www.redhat.com/ko/topics/devops/what-is-ci-cd
 * 단위 테스트를 활용하여 각 기능에 대한 테스트를 합니다.    
 
 * Jenkins CI를 통해 빌드시 테스트를 수행합니다.      
-  - Jenkins 서버 : http://101.101.216.202:8080/job/real-time-delivery-market    
+  - Jenkins 서버 : 현재 비용 문제로 이전 중에 있습니다.   
   
 * nGrinder를 활용한 성능 테스트를 수행합니다.    
   - nGrinder 설정(참고 사이트) : https://opentutorials.org/module/351/3334
