@@ -18,42 +18,13 @@ https://ovenapp.io/project/G6TOhysuxWklnhi5TDYkY9WPvh7jayQ8#aGfYS
 ## 브랜치 관리 전략
 
 * 해당 프로젝트는 Git-Flow 를 이용하여 브랜치를 관리하였습니다.
-![git_flow](https://user-images.githubusercontent.com/54772162/88681478-92ce9600-d12c-11ea-8be4-8b516f54cc6d.png)
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/54772162/101170794-45d27180-3682-11eb-8c42-6f4bf8ec73c9.PNG?raw=true" alt="Sublime's custom image"/>
+</p>
 
 * master : 배포시 사용할 브랜치.    
 * develop : 다음 버전을 개발하는 브랜치, 완전히 배포가 가능하다고 생각되면 master 브랜치에 merge 합니다.    
 * feature : 기능을 개발하는 브랜치.    
 * release : 배포를 준비할 때 사용할 브랜치.    
 * hotfix : 배포 후에 발생한 버그를 수정 하는 브랜치.    
-
-### 참고 사이트
-
-우린 Git-flow를 사용하고 있어요, 우아한 형제들 기술 블로그, Oct 30, 2017, 나동호
-https://woowabros.github.io/experience/2017/10/30/baemin-mobile-git-branch-strategy.html
-
-## CI(Continuous Integration)
-
-* CI란 무엇인가?(참고 사이트)    
-https://www.redhat.com/ko/topics/devops/what-is-ci-cd    
-
-* CI 동작과정    
-![jenkins_ci_process3](https://user-images.githubusercontent.com/54772162/90030465-0a88ed00-dcf7-11ea-938b-6184f5658564.jpg)
-
-* CI 설정 체크리스트    
-https://github.com/f-lab-edu/real-time-delivery-market/wiki/02.-CI-Setting-Check-list
-
-## CD(Continuous Deploy)
-![cd](https://user-images.githubusercontent.com/54772162/91732703-8cc44d00-ebe3-11ea-9d04-009fce30bc72.png)
-* CD란 무엇인가?(참고 사이트)    
-https://www.redhat.com/ko/topics/devops/what-is-ci-cd    
-
-## 테스트
-
-* 단위 테스트를 활용하여 각 기능에 대한 테스트를 합니다.    
-
-* Jenkins CI를 통해 빌드시 테스트를 수행합니다.      
-  - Jenkins 서버 : 현재 비용 문제로 이전 중에 있습니다.   
-  
-* nGrinder를 활용한 성능 테스트를 수행합니다.    
-  - nGrinder 설정(참고 사이트) : https://opentutorials.org/module/351/3334
-  - nGrinder 공식 문서 : https://github.com/naver/ngrinder/wiki
