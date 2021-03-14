@@ -8,16 +8,21 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 
+/**
+ * Spring cache 로 변경 예정.
+ */
 @Service
 public class RedisCacheService {
 
   private final static String SPRING_CACHE_PREFIX = "spring:";
   private final static String SPRING_CACHE_SEPARATOR = ":";
 
-  @Autowired
-  @Qualifier("cacheStrRedisTemplate")
-  private StringRedisTemplate cacheStrRedisTemplate;
+  private final StringRedisTemplate cacheStrRedisTemplate;
 
+  public RedisCacheService(@Qualifier("cacheStrRedisTemplate")
+                                     StringRedisTemplate cacheStrRedisTemplate) {
+    this.cacheStrRedisTemplate = cacheStrRedisTemplate;
+  }
 
   public String createSpringCacheKey (SpringCacheType cacheType, String suffix) {
 

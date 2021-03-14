@@ -5,7 +5,7 @@ import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
 import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
 import com.ht.project.realtimedeliverymarket.member.model.vo.MemberCache;
 import com.ht.project.realtimedeliverymarket.member.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class MemberService {
 
-  @Autowired
-  private MemberRepository memberRepository;
+  private final MemberRepository memberRepository;
 
   @Transactional
   public Member join(MemberJoinDto memberJoinDto) {
