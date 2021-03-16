@@ -1,16 +1,16 @@
 package com.ht.project.realtimedeliverymarket.category.controller;
 
 import com.ht.project.realtimedeliverymarket.category.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/categories")
 public class CategoryController {
 
-  @Autowired
-  private CategoryService categoryService;
+  private final CategoryService categoryService;
 
   @PostMapping
   public HttpStatus addMainCategory (@RequestBody String name) {

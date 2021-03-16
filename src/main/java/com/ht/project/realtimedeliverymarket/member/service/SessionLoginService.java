@@ -8,7 +8,7 @@ import com.ht.project.realtimedeliverymarket.member.model.dto.MemberLoginDto;
 import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
 import com.ht.project.realtimedeliverymarket.member.model.vo.MemberCache;
 import com.ht.project.realtimedeliverymarket.member.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,18 +17,16 @@ import javax.servlet.http.HttpSession;
 import java.time.Duration;
 
 @Service
+@RequiredArgsConstructor
 public class SessionLoginService implements LoginService{
 
   public static final String MEMBER_SESSION_KEY = "account";
 
-  @Autowired
-  private MemberRepository memberRepository;
+  private final MemberRepository memberRepository;
 
-  @Autowired
-  private RedisCacheService redisCacheService;
+  private final RedisCacheService redisCacheService;
 
-  @Autowired
-  private ObjectMapper objectMapper;
+  private final ObjectMapper objectMapper;
 
   @Transactional
   @Override
