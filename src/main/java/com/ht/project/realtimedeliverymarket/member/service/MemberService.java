@@ -48,7 +48,7 @@ public class MemberService {
   }
 
   @Transactional
-  @Cacheable(value = "memberInfo", key="'memberInfo:' + '#loginDto.account")
+  @Cacheable(value = "memberInfo", key="'memberInfo:' + #loginDto.account")
   public MemberInfo findMemberInfo(MemberLoginDto loginDto) {
 
     Member member = memberRepository
