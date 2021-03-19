@@ -1,9 +1,9 @@
 package com.ht.project.realtimedeliverymarket.member.service;
 
-import com.ht.project.realtimedeliverymarket.member.annotation.LoginCheck;
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
+import com.ht.project.realtimedeliverymarket.member.model.dto.MemberLoginDto;
 import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
-import com.ht.project.realtimedeliverymarket.member.model.vo.MemberCache;
+import com.ht.project.realtimedeliverymarket.member.model.vo.MemberInfo;
 import com.ht.project.realtimedeliverymarket.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -48,13 +48,18 @@ public class MemberService {
   }
 
   @Transactional
-  @LoginCheck
-  @Cacheable(value = "member", key="'memberInfo:' + '#account'")
-  public MemberCache findMemberCacheByAccount(String account) {
+  @Cacheable(value = "memberInfo", key="'memberInfo:' + '#loginDto.account")
+  public MemberInfo findMemberInfo(MemberLoginDto loginDto) {
 
-    return MemberCache.from(memberRepository
-            .findByAccount(account)
-            .orElseThrow(IllegalArgumentException::new));
+    Member member = memberRepository
+            .findByAccount(loginDto.getAccount())
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계정입니다."));
+
+    if (!member.getPassword().equals(loginDto.getPassword())) {
+
+      throw new IllegalArgumentException();
+    }
+
+    return MemberInfo.from(member);
   }
-
 }

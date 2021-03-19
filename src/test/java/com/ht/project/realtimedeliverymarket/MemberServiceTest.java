@@ -1,9 +1,13 @@
 package com.ht.project.realtimedeliverymarket;
 
 import com.ht.project.realtimedeliverymarket.member.model.dto.MemberJoinDto;
+import com.ht.project.realtimedeliverymarket.member.model.dto.MemberLoginDto;
 import com.ht.project.realtimedeliverymarket.member.model.entity.Member;
+import com.ht.project.realtimedeliverymarket.member.model.vo.Address;
+import com.ht.project.realtimedeliverymarket.member.model.vo.MemberInfo;
 import com.ht.project.realtimedeliverymarket.member.repository.MemberRepository;
 import com.ht.project.realtimedeliverymarket.member.service.MemberService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,6 +31,24 @@ public class MemberServiceTest {
 
   @InjectMocks
   private MemberService memberService;
+
+  private Member member;
+
+  @BeforeEach
+  public void setUp() {
+
+    member = Member.builder()
+            .account("test1234")
+            .password("Test1234!")
+            .name("홍길동")
+            .email("test1234@gmail.com")
+            .phone("010-1234-1234")
+            .address(new Address("서울시 강남구",
+                    "논현동",
+                    "테스트타워 101호",
+                    "123-123"))
+            .build();
+  }
 
   @Test
   @DisplayName("회원가입 테스트")
@@ -44,17 +68,17 @@ public class MemberServiceTest {
 
     when(memberRepository.save(any(Member.class))).thenReturn(Member.from(memberJoinDto));
 
-    Member member = memberService.join(memberJoinDto);
+    Member joinMember = memberService.join(memberJoinDto);
 
-    assertEquals("test1234", member.getAccount());
-    assertEquals("Test1234!", member.getPassword());
-    assertEquals("홍길동", member.getName());
-    assertEquals("test1234@gmail.com", member.getEmail());
-    assertEquals("010-1234-1234", member.getPhone());
-    assertEquals("서울시 강남구", member.getAddress().getCity());
-    assertEquals("논현동", member.getAddress().getStreet());
-    assertEquals("테스트타워 101호", member.getAddress().getDetail());
-    assertEquals("123-123", member.getAddress().getZipcode());
+    assertEquals(member.getAccount(), joinMember.getAccount());
+    assertEquals(member.getPassword(), joinMember.getPassword());
+    assertEquals(member.getName(), joinMember.getName());
+    assertEquals(member.getEmail(), joinMember.getEmail());
+    assertEquals(member.getPhone(), joinMember.getPhone());
+    assertEquals(member.getAddress().getCity(), joinMember.getAddress().getCity());
+    assertEquals(member.getAddress().getStreet(), joinMember.getAddress().getStreet());
+    assertEquals(member.getAddress().getDetail(), joinMember.getAddress().getDetail());
+    assertEquals(member.getAddress().getZipcode(), joinMember.getAddress().getZipcode());
 
   }
 
@@ -70,14 +94,54 @@ public class MemberServiceTest {
   @DisplayName("계정이 중복되면 예외가 발생합니다.")
   public void verifyDuplicatedAccountExceptionThrown() {
 
-    when(memberRepository.findByAccount("test1234"))
-            .thenReturn(java.util.Optional.of(new Member()));
+    String account = "test1234";
+
+    when(memberRepository.findByAccount(account)).thenReturn(Optional.of(member));
 
     assertThrows(IllegalStateException.class,
             () -> ReflectionTestUtils
                     .invokeMethod(memberService,
                             "verifyDuplicatedAccount",
-                            "test1234"));
+                            account));
 
+  }
+
+  @Test
+  @DisplayName("입력한 ID와 패스워드가 일치하지 않으면 IllegalArgumentException이 발생합니다.")
+  public void givenWrongPasswordWhenFindMemberInfoThenThrowsIllegalArgumentException() {
+
+    //given
+    MemberLoginDto loginDto = new MemberLoginDto("test1234", "Test2345@");
+
+    //when
+    when(memberRepository.findByAccount(loginDto.getAccount()))
+            .thenReturn(Optional.of(member));
+
+    //then
+    assertThrows(IllegalArgumentException.class,
+            () -> ReflectionTestUtils.invokeMethod(memberService, "findMemberInfo", loginDto));
+  }
+
+  @Test
+  @DisplayName("일치하는 로그인 정보입력하면 올바른 회원정보를 반환합니다.")
+  public void givenRightLoginInfoWhenFindMemberInfoThenPassed() {
+
+    //given
+    MemberLoginDto loginDto = new MemberLoginDto("test1234", "Test1234!");
+
+    //when
+    when(memberRepository.findByAccount(loginDto.getAccount())).thenReturn(Optional.of(member));
+
+    //then
+    MemberInfo memberInfo = memberService.findMemberInfo(loginDto);
+
+    assertEquals(member.getAccount(), memberInfo.getAccount());
+    assertEquals(member.getName(), memberInfo.getName());
+    assertEquals(member.getEmail(), memberInfo.getEmail());
+    assertEquals(member.getPhone(), memberInfo.getPhone());
+    assertEquals(member.getAddress().getCity(), memberInfo.getCity());
+    assertEquals(member.getAddress().getStreet(), memberInfo.getStreet());
+    assertEquals(member.getAddress().getDetail(), memberInfo.getDetail());
+    assertEquals(member.getAddress().getZipcode(), memberInfo.getZipcode());
   }
 }
