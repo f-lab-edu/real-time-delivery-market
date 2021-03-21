@@ -6,7 +6,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class MemberCache {
+public class MemberInfo {
 
   String id;
 
@@ -28,11 +28,11 @@ public class MemberCache {
 
   String points;
 
-  public static MemberCache from(Member member) {
+  public static MemberInfo from(Member member) {
 
     Address address = member.getAddress();
 
-    return MemberCache.builder()
+    return MemberInfo.builder()
             .id(String.valueOf(member.getId()))
             .account(member.getAccount())
             .name(member.getName())
