@@ -12,17 +12,11 @@ public class CategoryController {
 
   private final CategoryService categoryService;
 
-  @PostMapping
-  public HttpStatus addMainCategory (@RequestBody String name) {
+  @PostMapping(value = {"/", "/{id}"})
+  public HttpStatus addCategory (@RequestBody String name,
+                                 @PathVariable(required = false) Long id) {
 
-    categoryService.addMainCategory(name);
-    return HttpStatus.OK;
-  }
-
-  @PostMapping("/{id}")
-  public HttpStatus addSubCategory (@RequestBody String name, @PathVariable Long id) {
-
-    categoryService.addSubCategory(id, name);
+    categoryService.addCategory(id, name);
     return HttpStatus.OK;
   }
 }
