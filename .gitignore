@@ -32,7 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-### etc ###
-.mvn
-mvnw
-mvnw.cmd
+# Gradle
+.gradle/
+out/
