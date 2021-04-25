@@ -3,11 +3,19 @@
  */
 
 plugins {
+    id 'org.springframework.boot' version '2.4.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
 repositories {
     mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 test {
@@ -18,22 +26,22 @@ dependencies {
 
     //group: '', name: '', version: '' 을 아래와 같인 단순화하여 :을 통해 분리합니다.
 
-    implementation 'org.springframework.boot:spring-boot-starter:latest.release'
-    implementation 'org.springframework.boot:spring-boot-starter-web:latest.release'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:latest.release'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     compileOnly 'org.projectlombok:lombok:latest.release'
     annotationProcessor 'org.projectlombok:lombok:latest.release'
 
     compile 'javax.xml.bind:jaxb-api:latest.release'
 
-    implementation 'org.springframework.data:spring-data-redis:latest.release'
+    implementation 'org.springframework.data:spring-data-redis'
     implementation 'io.lettuce:lettuce-core:latest.release'
-    implementation 'org.springframework.session:spring-session-data-redis:latest.release'
-    implementation 'org.springframework.boot:spring-boot-starter-validation:latest.release'
+    implementation 'org.springframework.session:spring-session-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     runtimeOnly 'mysql:mysql-connector-java:latest.release'
 
-    testCompile 'org.springframework.boot:spring-boot-starter-test:latest.release'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 group = 'com.ht.project'

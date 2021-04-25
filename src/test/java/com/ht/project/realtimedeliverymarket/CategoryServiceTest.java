@@ -1,5 +1,7 @@
 package com.ht.project.realtimedeliverymarket;
 
+import com.ht.project.realtimedeliverymarket.category.exception.DuplicateCategoryException;
+import com.ht.project.realtimedeliverymarket.category.model.dto.CategoryParam;
 import com.ht.project.realtimedeliverymarket.category.model.entity.Category;
 import com.ht.project.realtimedeliverymarket.category.repository.CategoryRepository;
 import com.ht.project.realtimedeliverymarket.category.service.CategoryService;
@@ -9,9 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -26,37 +28,49 @@ public class CategoryServiceTest {
   private CategoryService categoryService;
 
   @Test
-  @DisplayName("메인 카테고리가 중복되면 예외가 발생합니다.")
-  public void insertDuplicatedMainCategoryThrowsException() {
+  @DisplayName("메인 카테고리 이름이 중복되면 DuplicateCategoryException이 발생합니다.")
+  public void givenDuplicatedMainCategoryNameThrowsException() {
 
-    when(categoryRepository.findByName("고기류")).thenReturn(java.util.Optional.of(new Category()));
+    //given
+    List<String> categoryNames = new ArrayList<>();
+    categoryNames.add("고기류");
 
-    assertThrows(IllegalArgumentException.class, () -> ReflectionTestUtils
-            .invokeMethod(categoryService,
-                    "addMainCategory",
-                    "고기류"));
+    List<Category> categories = new ArrayList<>();
+    categories.add(new Category("고기류"));
+
+    //when
+    when(categoryRepository.findAllByNameIn(categoryNames)).thenReturn(categories);
+
+    //then
+    assertThrows(DuplicateCategoryException.class,
+            () -> categoryService.addMainCategories(new CategoryParam(categoryNames)));
   }
 
   @Test
-  @DisplayName("서브 카테고리가 중복되면 예외가 발생합니다.")
-  public void insertDuplicatedSubCategoryThrowsException() {
+  @DisplayName("메인 카테고리가 존재하지 않으면 NotExistCategoryException이 발생합니다.")
+  public void givenWrongParentIdWhenFindCategoryByIdThrowsException() {
 
-    when(categoryRepository.findByName("돼지고기")).thenReturn(java.util.Optional.of(new Category()));
-
-    assertThrows(IllegalArgumentException.class, () -> ReflectionTestUtils
-            .invokeMethod(categoryService,
-                    "addSubCategory",
-                    1L, "돼지고기"));
+    //TODO 테스트 추가
   }
 
   @Test
-  @DisplayName("메인 카테고리가 존재하지 않으면 예외가 발생합니다.")
-  public void insertSubCategoryThrowsException() {
+  @DisplayName("서브 카테고리 이름이 중복되면 DuplicateCategoryException이 발생합니다.")
+  public void givenDuplicatedSubCategoryNameThrowsException() {
 
-    when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
+    //TODO 테스트 추가
+  }
 
-    assertThrows(IllegalArgumentException.class, () ->
-            ReflectionTestUtils
-                    .invokeMethod(categoryService, "addSubCategory", 1L, "돼지고기"));
+  @Test
+  @DisplayName("정상적인 카테고리 이름들이 입력되면 메인 카테고리 추가가 성공합니다.")
+  public void givenRightCategoryParamAddMainCategoriesPassed() {
+
+    //TODO 테스트 추가
+  }
+
+  @Test
+  @DisplayName("정상적인 부모 카테고리 id와 카테고리 이름들이 입력되면 서브 카테고리 추가가 성공합니다.")
+  public void givenRightParentCategoryIdAndCategoryParamAddSubCategoriesPassed() {
+
+    //TODO 테스트 추가
   }
 }
