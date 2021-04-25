@@ -1,7 +1,7 @@
 package com.ht.project.realtimedeliverymarket;
 
 import com.ht.project.realtimedeliverymarket.category.exception.DuplicateCategoryException;
-import com.ht.project.realtimedeliverymarket.category.exception.NotExistCategoryException;
+import com.ht.project.realtimedeliverymarket.category.model.dto.CategoryParam;
 import com.ht.project.realtimedeliverymarket.category.model.entity.Category;
 import com.ht.project.realtimedeliverymarket.category.repository.CategoryRepository;
 import com.ht.project.realtimedeliverymarket.category.service.CategoryService;
@@ -12,7 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -27,32 +28,49 @@ public class CategoryServiceTest {
   private CategoryService categoryService;
 
   @Test
-  @DisplayName("카테고리가 중복되면 예외가 발생합니다.")
-  public void givenDuplicatedCategoryNameThrowsException() {
+  @DisplayName("메인 카테고리 이름이 중복되면 DuplicateCategoryException이 발생합니다.")
+  public void givenDuplicatedMainCategoryNameThrowsException() {
 
     //given
-    String categoryName = "고기류";
+    List<String> categoryNames = new ArrayList<>();
+    categoryNames.add("고기류");
+
+    List<Category> categories = new ArrayList<>();
+    categories.add(new Category("고기류"));
 
     //when
-    when(categoryRepository.findByName(categoryName)).thenReturn(java.util.Optional.of(new Category()));
+    when(categoryRepository.findAllByNameIn(categoryNames)).thenReturn(categories);
 
     //then
     assertThrows(DuplicateCategoryException.class,
-            () -> categoryService.addCategory(null, categoryName));
+            () -> categoryService.addMainCategories(new CategoryParam(categoryNames)));
   }
 
   @Test
-  @DisplayName("메인 카테고리가 존재하지 않으면 예외가 발생합니다.")
-  public void givenWrongParentIdWhenFindParentCategoryByIdThrowsException() {
+  @DisplayName("메인 카테고리가 존재하지 않으면 NotExistCategoryException이 발생합니다.")
+  public void givenWrongParentIdWhenFindCategoryByIdThrowsException() {
 
-    //given
-    Long parentId = 1L;
+    //TODO 테스트 추가
+  }
 
-    //when
-    when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
+  @Test
+  @DisplayName("서브 카테고리 이름이 중복되면 DuplicateCategoryException이 발생합니다.")
+  public void givenDuplicatedSubCategoryNameThrowsException() {
 
-    //then
-    assertThrows(NotExistCategoryException.class, () -> categoryService.addCategory(parentId,
-            "돼지고기"));
+    //TODO 테스트 추가
+  }
+
+  @Test
+  @DisplayName("정상적인 카테고리 이름들이 입력되면 메인 카테고리 추가가 성공합니다.")
+  public void givenRightCategoryParamAddMainCategoriesPassed() {
+
+    //TODO 테스트 추가
+  }
+
+  @Test
+  @DisplayName("정상적인 부모 카테고리 id와 카테고리 이름들이 입력되면 서브 카테고리 추가가 성공합니다.")
+  public void givenRightParentCategoryIdAndCategoryParamAddSubCategoriesPassed() {
+
+    //TODO 테스트 추가
   }
 }
